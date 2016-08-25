@@ -2,10 +2,10 @@
 /* @var $this ImageARController */
 /* @var $model ImageAR */
 
-$this->pageTitle = 'Картинка' . $model->name;
+$this->pageTitle = 'Картинка ' . $model->name;
 ?>
 
-<h1>Картинка "<?= CHtml::encode($this->pageTitle); ?>"</h1>
+<h1> <?= CHtml::encode($this->pageTitle); ?></h1>
 
 <p><?= CHtml::link('Изменить картинку', ['/site/update', 'id' => $model->id]); ?></p>
 

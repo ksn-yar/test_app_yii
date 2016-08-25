@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * Картинки, основная модель для зааписи, "images".
+ * 
  * @inheritdoc
  *
  */
@@ -9,11 +11,12 @@ class ImageAR extends ImageBaseAR
 	const IMAGE_EXT = 'png';
 
 
-	/** @var mixed Description */
+	/** @var mixed файл */
 	public $image_file;
 	/** @var string Повтор пароля */
 	public $repeat_password;
 
+	/** @var array аттрибуты после поиска */
 	protected $_old_attr;
 
 	/**
@@ -40,23 +43,12 @@ class ImageAR extends ImageBaseAR
 
 		$new_rules = [
 			['image_file', 'required'],
-			['image_file', 'validateImageFile'],
 			['repeat_password', 'required'],
 			['password', 'compare', 'compareAttribute' => 'repeat_password'],
 		];
 
 		return CMap::mergeArray($rules, $new_rules);
 	}
-
-	/**
-	 * Валидация картинки
-	 * @param type $attribute
-	 */
-	public function validateImageFile($attribute)
-	{
-//		$this->addError($attribute, 'your password is not strong enough!');
-	}
-
 	/**
 	 * @inheritdoc
 	 */
@@ -64,8 +56,10 @@ class ImageAR extends ImageBaseAR
 	{
 		parent::setAttributes($values, $safeOnly);
 
+		// создаем имя файла, если создание
 		$this->filename = ( $this->isNewRecord ) ? $this->generateFilename() : $this->filename;
 
+		// готовим картинку
 		if ( isset($values['image_file']) ) {
 			$this->prepareImage($values['image_file']);
 		}
@@ -111,8 +105,6 @@ class ImageAR extends ImageBaseAR
 
 		$this->repeat_password = $this->password;
 
-//		$this->image_file = base64_encode(file_get_contents(Yii::getPathOfAlias('abs_data') .'/'. $this->filename));
-		
 		parent::afterFind();
 	}
 

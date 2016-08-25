@@ -18,7 +18,7 @@ class CheckPassF extends CFormModel
 	}
 
 	/**
-	 * Declares attribute labels.
+	 * @inheritdoc
 	 */
 	public function attributeLabels()
 	{
@@ -28,7 +28,7 @@ class CheckPassF extends CFormModel
 	}
 
 	/**
-	 *
+	 * Проверка пароля, если не совпадает, то добавит ошибку
 	 * @param ImageAR $model
 	 */
 	public function check($model)
